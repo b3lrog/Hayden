@@ -1,3 +1,4 @@
+
 @using Hayden.WebServer
 @using Hayden.WebServer.Services.Captcha
 @using Microsoft.Extensions.Options
@@ -9,7 +10,7 @@
 
 <cache expires-after="TimeSpan.FromMinutes(1)">
 <!DOCTYPE html>
-<html lang="en" class="theme-tomorrow">
+<html lang="en" class="theme-yotsubab">
 <head>
     <meta charset='utf-8'>
     <meta name='viewport' content='width=device-width,initial-scale=1'>
@@ -18,15 +19,16 @@
 
     <link rel='icon' type='image/png' href='/favicon.png'>
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
     @*<link rel="stylesheet" href="/css/site.css" />*@
-    <link rel='stylesheet' href='/build/bundle.css'>
+    <link rel='stylesheet' href='/build/bundle.css?_v=5'>
+    <link href="/lib/fontawesome/css/all.min.css" rel="stylesheet" />
 
-    <script defer src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script defer src="/js/moment.min.js"></script>
+    <script defer src="/js/jquery.min.js"></script>
+    <script defer src="/js/bootstrap.min.js"></script>
     <script async defer src="https://js.hcaptcha.com/1/api.js"></script>
-    <script defer src='/build/bundle.js'></script>
+    <script defer src='/build/bundle.js?_v=5'></script>
     <script>
         var info = {
             apiEndpoint: "/api",
@@ -37,6 +39,8 @@
             shiftJisArt: @Html.Raw(JsonConvert.SerializeObject(Config.Value.Settings.ShiftJisArt)),
             searchEnabled: @(Config.Value.Search.Enabled.ToString().ToLower()),
             compactBoardMode: @(Config.Value.Settings.CompactBoardsUi.ToString().ToLower()),
+            thumbLinks: @(Config.Value.Settings.ThumbLinks.ToString().ToLower()),
+            fileExpanding: @(Config.Value.Settings.FileExpanding.ToString().ToLower()),
         }
     </script>
 </head>

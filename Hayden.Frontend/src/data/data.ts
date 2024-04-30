@@ -10,6 +10,8 @@ export class InfoObject {
     shiftJisArt: string | null;
     searchEnabled: boolean;
 	compactBoardMode: boolean;
+    thumbLinks: boolean;
+    fileExpanding: boolean;
 }
 
 export interface NewsItem {
@@ -47,6 +49,8 @@ export class ThreadModel {
     archived: boolean;
     deleted: boolean;
 
+    omitted: number;
+
     posts: PostModel[];
 }
 
@@ -57,13 +61,25 @@ export class PostModel {
     contentRaw: string | null;
 
     author: string | null;
+    email: string | null;
     tripcode: string | null;
 
     dateTime: string;
 
     deleted: boolean;
 
+    embed: string | null;
+
+    capcode: string | null;
+
+    country: CountryModel | null;
+
     files: FileModel[];
+}
+
+export class CountryModel {
+    code: string;
+    name: string;
 }
 
 export class FileModel {

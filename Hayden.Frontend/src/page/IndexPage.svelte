@@ -82,13 +82,9 @@
                         ><tr>
                             <div id="divNavigation" class="navigation title">
                                 <ul>
-                                    <!-- <li><a href="news">News</a></li> -->
-                                    <!-- <li><a href="rules">Rules</a></li> -->
                                     <li><a href="info">Info & Contact</a></li>
-                                    <!-- <li>
-                                        <a href="mailto:22chan@disroot.org">Contact</a>
-                                    </li> -->
-                                    <!-- <li><a href="legal">Legal</a></li> -->
+                                    <li><a href="https://gazou.chud.site/">Discussion</a></li>
+                                    <li><a href="https://chud.site/donate">Donate</a></li>
                                 </ul>
                             </div>
                         </tr>
@@ -204,9 +200,9 @@
     }
 
     .logo {
-        height: auto;
+        width: auto;
         box-sizing: border-box;
-        width: 350px;
+        height: 85px;
         margin: auto;
         display: block;
     }

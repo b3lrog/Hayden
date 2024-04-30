@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Web;
 using Hayden.Api;
 using Hayden.Config;
 using Hayden.Consumers.HaydenMysql.DB;
@@ -43,7 +44,7 @@ namespace Hayden
 			return new Thread
 			{
 				ThreadId = thread.OriginalPost.PostNumber,
-				Title = thread.OriginalPost.Subject,
+				Title = HttpUtility.HtmlDecode(thread.OriginalPost.Subject),
 				IsArchived = thread.Archived,
 				OriginalObject = thread,
 				Posts = thread.Posts.Select(x => x.ConvertToPost(board, ImageboardWebsite)).ToArray(),
@@ -106,6 +107,9 @@ namespace Hayden
 		[JsonProperty("time")]
 		public uint UnixTimestamp { get; set; }
 
+		[JsonProperty("email")]
+		public string Email { get; set; }
+
 		[JsonProperty("name")]
 		public string Name { get; set; }
 
@@ -165,12 +169,41 @@ namespace Hayden
 
 		[JsonProperty("extra_files")]
 		public List<VichanExtraFile> ExtraFiles { get; set; }
+
+		[JsonProperty("embed")]
+		public string Embed { get; set; }
+
+		private string GuessThumbnailUrl(string board, string imageboardUrlRoot, string timestampedFilename, string originalExtension)
+		{
+			originalExtension = originalExtension.ToLower();
+			if (originalExtension == ".mp3" ||
+			    originalExtension == ".wav" ||
+				originalExtension == ".flac" ||
+				originalExtension == ".opus" ||
+				originalExtension == ".ogg" ||
+				originalExtension == ".pdf" ||
+				originalExtension == ".mov" ||
+				originalExtension == ".swf") {
+					return null;
+				}
+			
+			var thumbExt = originalExtension.ToLower() switch
+			{
+				".png" => ".png",
+				".jpg" => ".jpg",
+				".jpeg" => ".jpeg",
+				".webp" => ".webp",
+				".gif" => ".gif",
+				_ => ".jpg",
+			};
+			return $"{imageboardUrlRoot}{board}/thumb/{timestampedFilename}{thumbExt}";
+		}
 		
 		public Post ConvertToPost(string board, string imageboardUrlRoot)
 		{
 			Media[] media = Array.Empty<Media>();
 
-			if (FileMd5 != null)
+			if (OriginalFilename != null)
 			{
 				var mediaList = new List<Media>
 				{
@@ -180,15 +213,15 @@ namespace Hayden
 						// Thumbnails on Vichan are FUCKED. They're typically .jpg, but can be
 						// other formats such as .webp depending on the full file extension, Vichan version & fork
 						// It's not possible to determine this through the API
-						ThumbnailUrl = $"{imageboardUrlRoot}{board}/thumb/{TimestampedFilename}.jpg",
+						ThumbnailUrl = GuessThumbnailUrl(board, imageboardUrlRoot, TimestampedFilename, FileExtension),
 						Filename = OriginalFilename,
 						FileExtension = FileExtension,
 						ThumbnailExtension = "jpg",
 						Index = 0,
 						FileSize = FileSize.Value,
-						IsDeleted = false, // Vichan API does not expose this
+						IsDeleted = FileExtension == "deleted", // Vichan API does not expose this
 						IsSpoiler = null, // Vichan API does not expose this
-						Md5Hash = Convert.FromBase64String(FileMd5),
+						Md5Hash = FileMd5 != null ? Convert.FromBase64String(FileMd5) : null,
 						OriginalObject = this,
 						AdditionalMetadata = null
 					}
@@ -202,15 +235,15 @@ namespace Hayden
 						// Thumbnails on Vichan are FUCKED. They're typically .jpg, but can be
 						// other formats such as .webp depending on the full file extension, Vichan version & fork
 						// It's not possible to determine this through the API
-						ThumbnailUrl = $"{imageboardUrlRoot}{board}/thumb/{file.TimestampedFilename}.jpg",
+						ThumbnailUrl = GuessThumbnailUrl(board, imageboardUrlRoot, file.TimestampedFilename, file.FileExtension),
 						Filename = file.OriginalFilename,
 						FileExtension = file.FileExtension,
 						ThumbnailExtension = "jpg",
-						Index = (byte)i,
+						Index = (byte)(i + 1),
 						FileSize = file.FileSize,
-						IsDeleted = false, // Vichan API does not expose this
+						IsDeleted = file.FileExtension == "deleted", // Vichan API does not expose this
 						IsSpoiler = null, // Vichan API does not expose this
-						Md5Hash = Convert.FromBase64String(file.FileMd5),
+						Md5Hash = file.FileMd5 != null ? Convert.FromBase64String(file.FileMd5) : null,
 						OriginalObject = this,
 						AdditionalMetadata = new()
 						{
@@ -228,7 +261,7 @@ namespace Hayden
 				TimePosted = DateTimeOffset.FromUnixTimeSeconds(UnixTimestamp),
 				Author = Name,
 				Tripcode = Trip,
-				Email = null,
+				Email = Email,
 				ContentRendered = Comment,
 				ContentRaw = null,
 				ContentType = ContentType.Vichan,
@@ -238,7 +271,8 @@ namespace Hayden
 				{
 					Capcode = Capcode,
 					CountryCode = CountryCode,
-					CountryName = CountryName
+					CountryName = CountryName,
+					Embed = Embed
 				}
 			};
 		}

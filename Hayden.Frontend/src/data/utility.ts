@@ -79,7 +79,13 @@ export class Utility {
 			throw result;
 		}
 
-		return await result.json();
+		let json = await result.json();
+
+		if (!json) {
+			throw json;
+		}
+
+		return json;
 	}
 
 	static async PostForm(endpoint: string, data: any): Promise<Response> {
@@ -170,5 +176,24 @@ export class Utility {
 			}
 			return rv;
 		}, []);
+	}
+
+	static guessThumbnailSize(width: number, height: number) : { width: number, height: number } {
+		const maxWidth = 255;
+		const maxHeight = 255;
+
+		const aspectRatio = width / height;
+
+		if (width > maxWidth || height > maxHeight) {
+			if (aspectRatio > 1) {
+				width = maxWidth;
+				height = Math.ceil(maxWidth / aspectRatio);
+			} else {
+				height = maxHeight;
+				width = Math.ceil(maxHeight * aspectRatio);
+			}
+		}
+
+		return { width, height };
 	}
 }

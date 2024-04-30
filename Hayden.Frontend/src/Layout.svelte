@@ -4,11 +4,19 @@
     import { moderatorUserStore, boardInfoStore, theme as themeStore } from "./data/stores"
     import { Api } from "./data/api";
     import SearchBar from "./component/SearchBar.svelte";
+	import { router } from "tinro";
 
     const themes = [
-        { key: "yotsuba", text: "Yotsuba" },
-        { key: "tomorrow", text: "Tomorrow" },
+        { key: "yotsuba4", text: "Yotsuba" },
+        { key: "yotsubab4", text: "Yotsuba B" },
+        { key: "yotsuba", text: "Heyuri" },
+        { key: "yotsubab", text: "Heyuri B" },
+        { key: "futaba", text: "Futaba" },
+        { key: "burichan", text: "Burichan" },
+/*        { key: "tomorrow", text: "Tomorrow" },*/
         { key: "niniba", text: "Niniba" },
+        { key: "osaka", text: "Osaka" },
+        { key: "midnight", text: "Midnight" },
     ]
 
     let selectedTheme: string = $themeStore;
@@ -41,6 +49,7 @@
     }
 
     .brand-link {
+        font-size: 16px;
         font-weight: bold;
     }
 
@@ -49,9 +58,8 @@
     }
 
     .logo {
-        height: auto;
         box-sizing: border-box;
-        width: 350px;
+        height: 85px;
         margin: auto;
         display: block;
         float: none;
@@ -81,10 +89,19 @@
     .max-container {
         max-width: 100%;
     }
+
+    .banner {
+        padding: 0.5rem 2rem;
+        border-bottom: 2px solid var(--nav-background-color);
+    }
+
+    .donate-link {
+        text-decoration: underline;
+    }
 </style>
 
-<header>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light box-shadow mb-3">
+<header class="mb-3">
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm box-shadow" class:navbar-light={selectedTheme !== 'tomorrow' && selectedTheme !== 'midnight' && selectedTheme !== 'osaka'} class:navbar-dark={selectedTheme === 'tomorrow' || selectedTheme === 'midnight' || selectedTheme === 'osaka'}>
         <div class="container max-container">
             <a class="board-nav-link brand-link" href="/">{Utility.infoObject.siteName}</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -93,9 +110,9 @@
             </button>
             <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                 <ul class="navbar-nav flex-grow-1">
-                    <!-- <li class="nav-item">
-                        <a class="nav-link" href="/">Home</a>
-                    </li> -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://gazou.chud.site/">Discussion</a>
+                    </li>
                     <li class="separator"></li>
                     {#await $boardInfoStore}
                         <li class="nav-item nav-text">Loading...</li>
@@ -163,6 +180,9 @@
             </div>
         </div>
     </nav>
+    <div class="banner">
+        <a href="https://chud.site/donate" class="donate-link">Donations to the archive</a> would be appreciated to help cover costs and introduce a search feature.
+    </div>
 </header>
 <div class="mx-4">
     <main class="pb-3">
@@ -173,10 +193,9 @@
     </main>
 </div>
 
-<footer class="border-top footer text-muted">
+<footer class="footer text-muted">
     <div class="container d-flex align-items-center">
-        <span><a href="https://github.com/bbepis/Hayden" tinro-ignore>Hayden</a> 1.0</span>
-        <!-- <a href="/legal" class="legal-link">Legal</a> -->
+        <span class="mr-3"><a href="https://github.com/bbepis/Hayden" tinro-ignore>Hayden</a> 1.0 + {Utility.infoObject.siteName}  patch</span>
         <div class="flex-grow-1"></div>
         <select class="form-control theme-select" style="padding: 0.25rem; height: calc(1.5rem + 0.25rem)"
             bind:value={selectedTheme}

@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
+using Serilog;
 using static Hayden.WebServer.Controllers.Api.ApiController;
 
 namespace Hayden.WebServer.Data
@@ -19,6 +20,7 @@ namespace Hayden.WebServer.Data
 	{
 		private HaydenDbContext dbContext { get; }
 		private IOptions<ServerConfig> config { get; }
+		public static ILogger Logger { get; } = SerilogManager.CreateSubLogger("HaydenDataProvider");
 
 		public HaydenDataProvider(HaydenDbContext context, IOptions<ServerConfig> config)
 		{
@@ -63,7 +65,7 @@ namespace Hayden.WebServer.Data
 		}
 
 		private JsonThreadModel CreateThreadModel(DBBoard boardObj, DBThread thread, IEnumerable<DBPost> posts,
-			(DBFileMapping, DBFile)[] mappings)
+			(DBFileMapping, DBFile)[] mappings, int omitted = 0)
 		{
 			return new JsonThreadModel(boardObj, thread, posts.Select(x =>
 					new JsonPostModel(x,
@@ -77,7 +79,7 @@ namespace Hayden.WebServer.Data
 
 								return new JsonFileModel(y.Item2, y.Item1, imageUrl, thumbUrl);
 							}).ToArray()))
-				.ToArray());
+				.ToArray(), omitted);
 		}
 
 		private JsonPostModel CreatePostModel(DBBoard boardObj, DBPost post,
@@ -166,9 +168,11 @@ namespace Hayden.WebServer.Data
 
 				var (boardObj, threadObj, posts, mappings) = await dbContext.GetThreadInfo(thread.ThreadId, thread.BoardId);
 
+				var totalPosts = posts.Count();
 				var limitedPosts = posts.Take(1).Concat(posts.TakeLast(3)).Distinct();
+				var omitted = totalPosts - limitedPosts.Count();
 
-				threadModels[i] = CreateThreadModel(boardObj, threadObj, limitedPosts, mappings);
+				threadModels[i] = CreateThreadModel(boardObj, threadObj, limitedPosts, mappings, omitted);
 			}
 
 			return new JsonBoardPageModel
@@ -314,11 +318,13 @@ namespace Hayden.WebServer.Data
 			if (post == null)
 				return false;
 
-			var board = await dbContext.Boards.FirstAsync(x => x.Id == boardId);
+			var board = await dbContext.Boards.FirstOrDefaultAsync(x => x.Id == boardId);
 
 			var mappings = await dbContext.FileMappings
 				.Where(x => x.BoardId == boardId && x.PostId == postId)
 				.ToArrayAsync();
+				
+			var thread = await dbContext.Threads.FirstOrDefaultAsync(x => x.BoardId == boardId && x.ThreadId == postId);
 
 			foreach (var mapping in mappings)
 				dbContext.Remove(mapping);
@@ -345,9 +351,38 @@ namespace Hayden.WebServer.Data
 				}
 			}
 
+			if (thread != null)
+			{
+				Logger.Information($"Pruning thread /{board.ShortName}/{post.PostId}");
+
+				dbContext.Remove(thread);
+
+				var replies = await dbContext.Posts.Where(x => x.BoardId == boardId && x.ThreadId == post.PostId)
+					.ToArrayAsync();
+				
+				foreach (var reply in replies)
+				{
+					var replyMappings = await dbContext.FileMappings
+						.Where(x => x.BoardId == boardId && x.PostId == reply.PostId)
+						.ToArrayAsync();
+
+					foreach (var mapping in replyMappings)
+						dbContext.Remove(mapping);
+
+					Logger.Information($"Pruning reply /{board.ShortName}/{reply.PostId}");
+					
+					dbContext.Remove(reply);
+				}
+			}
+			else
+			{
+				Logger.Information($"Pruning reply /{board.ShortName}/{post.PostId}");
+			}
+
 			// actually delete the post from the db?
 			// flag on board object "PreserveDeleted"
-			post.IsDeleted = true;
+			// post.isDeleted = true;
+			dbContext.Remove(post);
 
 			await dbContext.SaveChangesAsync();
 

@@ -130,7 +130,9 @@ public static class Program
 				CompactBoardsUi = false,
 				MaxFileUploadSizeMB = 4,
 				SiteName = "Hayden Archive",
-				ShiftJisArt = null
+				ShiftJisArt = null,
+				ThumbLinks = true,
+                FileExpanding = false
 			},
 
 			RedirectToHTTPS = false,

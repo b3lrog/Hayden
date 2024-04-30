@@ -210,6 +210,7 @@ public class Program
 			case "JSArchive":     serviceCollection.AddSingleton<IImporter, JSArchiveImporter>(); break;
 			case "Tar":           serviceCollection.AddSingleton<IForwardOnlyImporter, TarJsonImporter>(); break;
 			case "Json":          serviceCollection.AddSingleton<IForwardOnlyImporter, JsonImporter>(); break;
+			case "Warehouse":     serviceCollection.AddSingleton<IImporter, WarehouseImporter>(); break;
 			default:              throw new Exception($"Unknown source type: {configFile.Source.Type}");
 		}
 

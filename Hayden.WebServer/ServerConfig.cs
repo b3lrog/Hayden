@@ -55,6 +55,10 @@ namespace Hayden.WebServer
 		//public NewsItem[] NewsItems { get; set; }
 
 		public string ShiftJisArt { get; set; }
+
+        public bool ThumbLinks { get; set; }
+
+        public bool FileExpanding { get; set; }
 	}
 
 	public class ServerSearchConfig

@@ -7,6 +7,7 @@
 	export let boardId: number;
 	export let postId: number;
 	export let moderator: boolean;
+	export let originalUrl: string;
 
 	function showDeletePostModal() {
 		dispatch("postaction", {
@@ -31,9 +32,15 @@
 			postId: postId,
 		});
 	}
+
+	function viewOriginal() {
+		window.open(originalUrl, '_blank').focus();
+	}
 </script>
 
 <div class="menu">
+	<div class="menu-caption">Post</div>
+	<div class="menu-item" on:click={viewOriginal}>Original</div>
 	<div class="menu-item" on:click={showReportModal}>Report</div>
 	{#if moderator}
 		<div class="menu-item" on:click={showDeletePostModal}>Delete post</div>
@@ -45,18 +52,4 @@
 </div>
 
 <style>
-	.menu {
-		width: 150px;
-		background-color: var(--post-background-color);
-	}
-
-	.menu-item {
-		border: 1px solid var(--post-border-color);
-		cursor: pointer;
-		user-select: none;
-	}
-
-	.menu-item:hover {
-		background-color: var(--box-background-color);
-	}
 </style>

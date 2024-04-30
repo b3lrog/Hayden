@@ -14,8 +14,10 @@ export const moderatorUserStore = writable<ModeratorRole | null>(null);
 export const boardInfoStore = writable<Promise<BoardModel[]> | null>(null);
 export const searchParamStore = writable<Record<string, string> | null>(null);
 
-export const theme = writable(localStorage.getItem("hayden_theme") || 'tomorrow')
-theme.subscribe((value) => localStorage.setItem("hayden_theme", value))
+localStorage.removeItem("hayden_theme");
+
+export const theme = writable(localStorage.getItem("sude_theme") || 'yotsubab4')
+theme.subscribe((value) => localStorage.setItem("sude_theme", value))
 
 export async function initStores() {
     Api.GetUserInfoAsync()

@@ -3,6 +3,7 @@
     import type { ThreadModel } from "../data/data";
     import { Utility } from "../data/utility";
     import PostUploader from "../component/PostUploader.svelte";
+	import { router } from 'tinro';
 
 
     export let board: string;
@@ -26,32 +27,47 @@
         }
     }
 
-    async function Refresh() {
+    async function Refresh(e) {
+        e.preventDefault();
         isRefreshing = true;
         await FetchThread();
         isRefreshing = false;
+        return false;
     }
 
     FetchThread();
 </script>
 
-<div class="container-margin">
+<div>
     {#if errorOccurred}
-        <p>Error</p>
+        <div class="alert alert-warning" role="alert">
+            Couldn't load the thread.
+        </div>
     {:else if thread === null}
-        <p>Loading...</p>
+        <div class="ml-2 spinner-border spinner-border-sm" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <span>Loading...</span>
     {:else}
         <Thread {thread} jumpToHash={true} />
 
-        <div class="my-2">
-            <button class="reset-btn" on:click={Refresh}>Refresh</button>
+        <div class="my-3">
+            [<a href={`/board/${board}`}>Return</a>]
+            [<a href="#top">Top</a>]
+            [<a href="#" on:click={Refresh}>Update</a>]
 
             {#if isRefreshing}
                 <div class="ml-2 spinner-border spinner-border-sm" role="status">
                     <span class="sr-only">Loading...</span>
                 </div>
-                <span>Refreshing...</span>
+                <span>Updating...</span>
             {/if}
+            
+            <div class="float-right" title="Post Count / File Count">
+                [{thread.posts.length.toLocaleString()}
+                /
+                {thread.posts.map(t => t.files.length).reduce((a, b) => a + b, 0).toLocaleString()}]
+            </div>
         </div>
 
         {#if thread.board.isReadOnly === false && thread.archived === false}
@@ -63,9 +79,3 @@
         {/if}
     {/if}
 </div>
-
-<style>
-    .reset-btn {
-        border-radius: revert;
-    }
-</style>

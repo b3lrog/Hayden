@@ -330,3 +330,5 @@ ASALocalRun/
 .mfractor/
 Hayden.WebServer/wwwroot/build
 build-output/
+Hayden.WebServer/config.json
+Hayden/config.json

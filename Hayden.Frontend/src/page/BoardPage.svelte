@@ -41,14 +41,18 @@
 
 <style>
     .board-title {
-        font-size: 30px;
+        font-size: 24px;
         text-align: center;
         margin-bottom: 10px;
+        font-weight: 700;
     }
 </style>
 
 {#await dataPromise}
-    <p>Loading...</p>
+    <div class="ml-2 spinner-border spinner-border-sm" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+    <span>Loading...</span>
 {:then data}
 
     <div class="board-title">
@@ -61,13 +65,15 @@
 
     {#each data.threads as thread, index ([thread.board.id, thread.threadId]) }
     
-        <br/>
+        <!-- {#if index > 0}<br/>{/if} -->
         <hr/>
 
         <Thread {thread} />
     {/each}
-{:catch}
-    <p>Error 1</p>
-{/await}
 
-<PageSelector currentPage={initialCurrentPage} {maxPage} on:page={event => navigatePage(event.detail.page)} />
+    <PageSelector currentPage={initialCurrentPage} {maxPage} on:page={event => navigatePage(event.detail.page)} />
+{:catch}
+    <div class="alert alert-warning" role="alert">
+        Couldn't load the board.
+    </div>
+{/await}

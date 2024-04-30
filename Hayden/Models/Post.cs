@@ -46,6 +46,9 @@ public class Post
 		[JsonProperty("boardFlagName")]
 		public string BoardFlagName { get; set; }
 
+		[JsonProperty("embed")]
+		public string Embed { get; set; }
+
 		[JsonProperty("exif")]
 		public string Exif { get; set; }
 		[JsonProperty("asagi_exif")]
@@ -83,6 +86,7 @@ public class Post
 			addString("boardFlagName", BoardFlagName);
 			addString("exif", Exif);
 			addString("asagi_exif", AsagiExif);
+			addString("embed", Embed);
 
 			addBool("ponychan_mature", PonychanMature ?? false);
 			addBool("ponychan_anonymous", PonychanAnonymous ?? false);

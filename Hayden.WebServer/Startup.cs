@@ -171,6 +171,9 @@ namespace Hayden.WebServer
 			app.UseAuthorization();
 
 			app.UseMvc();
+			
+			app.UseStatusCodePages();
+
 			//app.UseMvc(routes =>
 			//{
 			//	if (Config.ApiMode)

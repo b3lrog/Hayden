@@ -6,6 +6,7 @@ using Hayden.WebServer.Data;
 using Hayden.WebServer.Search;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace Hayden.WebServer.Controllers.Api
@@ -28,7 +29,9 @@ namespace Hayden.WebServer.Controllers.Api
 
 				var (boardObj, threadObj, posts, mappings) = await dbContext.GetThreadInfo(thread.ThreadId, thread.BoardId);
 
+				var totalPosts = posts.Count();
 				var limitedPosts = posts.Take(1).Concat(posts.TakeLast(3)).Distinct();
+				var omitted = totalPosts - limitedPosts.Count();
 
 				threadModels[i] = new JsonThreadModel(boardObj, threadObj, limitedPosts.Select(x =>
 						new JsonPostModel(x,
@@ -39,7 +42,7 @@ namespace Hayden.WebServer.Controllers.Api
 
 									return new JsonFileModel(y.Item2, y.Item1, imageUrl, thumbUrl);
 								}).ToArray()))
-					.ToArray());
+					.ToArray(), omitted);
 			}
 
 			return Json(threadModels);
@@ -167,7 +170,9 @@ namespace Hayden.WebServer.Controllers.Api
 
 			public JsonPostModel[] posts { get; set; }
 
-			public JsonThreadModel(DBBoard board, DBThread thread, JsonPostModel[] posts)
+			public int omitted { get; set; }
+
+			public JsonThreadModel(DBBoard board, DBThread thread, JsonPostModel[] posts, int omitted)
 			{
 				this.board = board;
 
@@ -176,6 +181,8 @@ namespace Hayden.WebServer.Controllers.Api
 				lastModified = thread.LastModified;
 				archived = thread.IsArchived;
 				deleted = thread.IsDeleted;
+
+				this.omitted = omitted;
 
 				this.posts = posts;
 			}
@@ -191,6 +198,7 @@ namespace Hayden.WebServer.Controllers.Api
 			public string contentRaw { get; set; }
 
 			public string author { get; set; }
+			public string email { get; set; }
 			public string tripcode { get; set; }
 
 			public DateTime dateTime { get; set; }
@@ -199,15 +207,36 @@ namespace Hayden.WebServer.Controllers.Api
 
 			public JsonFileModel[] files { get; set; }
 
+			public string embed { get; set; }
+
+			public string capcode { get; set; }
+
+			public JsonCountryModel country { get; set; }
+
 			public JsonPostModel(DBPost post, JsonFileModel[] files)
 			{
 				postId = post.PostId;
 				contentHtml = post.ContentHtml;
 				contentRaw = post.ContentRaw;
 				author = post.Author;
+				email = post.Email;
 				tripcode = post.Tripcode;
 				dateTime = post.DateTime;
 				deleted = post.IsDeleted;
+				
+				if (!string.IsNullOrWhiteSpace(post.AdditionalMetadata))
+				{
+					var additionalMetadata = JsonConvert.DeserializeObject<Models.Post.PostAdditionalMetadata>(post.AdditionalMetadata);
+
+					embed = additionalMetadata.Embed;
+
+					capcode = additionalMetadata.Capcode;
+
+					if (additionalMetadata.CountryCode != null && additionalMetadata.CountryName != null)
+					{
+						country = new JsonCountryModel(additionalMetadata.CountryCode, additionalMetadata.CountryName);
+					}
+				}
 
 				this.files = files;
 			}
@@ -274,6 +303,19 @@ namespace Hayden.WebServer.Controllers.Api
 			}
 
 			public JsonFileModel() { }
+		}
+		
+		public class JsonCountryModel
+		{
+			public string name { get; set; }
+
+			public string code { get; set; }
+
+			public JsonCountryModel(string code, string name)
+			{
+				this.code = code;
+				this.name = name;
+			}
 		}
 	}
 }

@@ -28,8 +28,8 @@
 
 <!-- svelte-ignore a11y-invalid-attribute -->
 <div class="justify-content-center">
-    <ul class="pagination pagination-lg justify-content-center">
-        <li class="page-item" class:disabled={currentPage <= 1}><a tinro-ignore class="page-link" on:click={goToPageHandler(currentPage - 1)} href="#">Previous</a></li>
+    <ul class="pagination pagination justify-content-center mt-4">
+        <li class="page-item" class:disabled={currentPage <= 1}><a tinro-ignore class="page-link" on:click={goToPageHandler(currentPage - 1)} href="#">&leftarrow; Previous</a></li>
 
         {#if currentPage > 2}
             <li class="page-item"><a tinro-ignore class="page-link" on:click={goToPageHandler(1)} href="#">1</a></li>
@@ -63,6 +63,6 @@
             <li class="page-item"><a class="page-link" on:click={goToPageHandler(maxPage)} href="#">{maxPage}</a></li>
             {/if}
 
-        <li class="page-item" class:disabled={currentPage >= maxPage}><a tinro-ignore class="page-link" on:click={goToPageHandler(currentPage + 1)} href="#">Next</a></li>
+        <li class="page-item" class:disabled={currentPage >= maxPage}><a tinro-ignore class="page-link" on:click={goToPageHandler(currentPage + 1)} href="#">Next &rightarrow;</a></li>
     </ul>
 </div>

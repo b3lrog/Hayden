@@ -4,6 +4,7 @@
     import { Utility } from "./data/utility";
 
 	import IndexPage from "./page/IndexPage.svelte";
+	import InfoPage from "./page/InfoPage.svelte";
 	import ThreadPage from "./page/ThreadPage.svelte";
 	import SearchPage from "./page/SearchPage.svelte";
 	import AdminPage from "./page/AdminPage.svelte";
@@ -21,6 +22,7 @@
 
 <Layout>
 	<Route path="/"><IndexPage /></Route>
+	<Route path="/info"><InfoPage /></Route>
 	<Route path="/:board/thread/:threadid" let:meta><ThreadPage board={meta.params.board} threadId={Number(meta.params.threadid)} /></Route>
 	<Route path="/board/:board/*" firstmatch let:meta={boardMeta}>
 		<Route path="/page/:page" let:meta>

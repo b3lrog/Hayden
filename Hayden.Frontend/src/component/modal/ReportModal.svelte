@@ -4,6 +4,8 @@
 	let setBoardId: number;
 	let setPostId: number;
 
+	let sending = false;
+
 	export const showModal: (boardId: number, postId: number) => void = (
 		boardId: number,
 		postId: number,
@@ -22,14 +24,15 @@
 	let additionalInfo: string = "";
 
 	const reportCategories: ICategory[] = [
-		{ value: 4, text: "CSAM / Child Pornography" },
-		{ value: 4, text: "Illegal content" },
-		{ value: 3, text: "DMCA / Copyright claim" },
-		{ value: 2, text: "Doxx / Personal info" },
+		{ value: 3, text: "This post violates US law" },
+		{ value: 2, text: "This post contains lolikon or shota" },
+		{ value: 2, text: "This post contains pornography" },
+		{ value: 2, text: "This post contains gore" },
 		{ value: 1, text: "Other" },
 	];
 
 	async function sendReport() {
+		sending = true;
 		await Utility.PostForm("/makereport", {
 			boardId: setBoardId,
 			postId: setPostId,
@@ -37,7 +40,12 @@
 			additionalInfo: (category.text + "\n" + additionalInfo).trim(),
 		});
 
+		sending = false;
+
 		jQuery(banUserModal).modal("hide");
+
+		category = null;
+		additionalInfo = '';
 	}
 
 	let banUserModal: HTMLDivElement;
@@ -48,13 +56,13 @@
 	class="modal fade"
 	tabindex="-1"
 	role="dialog"
-	aria-labelledby="exampleModalLabel"
+	aria-labelledby="reportModalLabel"
 	aria-hidden="true"
 >
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Report post</h5>
+				<h5 class="modal-title" id="reportModalLabel">Report post</h5>
 				<button
 					type="button"
 					class="close"
@@ -67,9 +75,9 @@
 			<div class="modal-body">
 				<div class="container">
 					<div class="row my-1">
-						<div class="col-4">Category:</div>
+						<div class="col-4">Reason:</div>
 						<div class="col-8">
-							<select class="form-control" bind:value={category}>
+							<select class="form-control" bind:value={category} disabled={sending}>
 								{#each reportCategories as category}
 									<option value={category}>
 										{category.text}
@@ -84,25 +92,33 @@
 							<textarea
 								class="form-control"
 								bind:value={additionalInfo}
+								disabled={sending}
 							/>
 						</div>
 					</div>
 				</div>
 			</div>
 			<div class="modal-footer">
+				{#if sending}
+					<div class="mr-2 spinner-border spinner-border-sm" role="status">
+						<span class="sr-only">Sending...</span>
+					</div>
+				{/if}
 				<button
 					type="button"
-					class="btn btn-secondary"
+					class="btn btn-light btn-sm"
 					data-dismiss="modal"
+					disabled={sending}
 				>
 					Close
 				</button>
 				<button
 					type="button"
-					class="btn btn-primary"
+					class="btn btn-danger btn-sm font-weight-bold"
 					on:click={sendReport}
+					disabled={sending}
 				>
-					Send
+					{sending ? 'Sending...' : 'Report'}
 				</button>
 			</div>
 		</div>
@@ -112,5 +128,9 @@
 <style>
 	.modal {
 		color: #212529;
+	}
+
+	textarea {
+		resize: none;
 	}
 </style>

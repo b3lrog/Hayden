@@ -1,6 +1,14 @@
-﻿:root.theme-yotsuba {
+@font-face {	
+  font-family: 'Osaka';
+  font-style: normal;
+  font-weight: normal;
+  src: url('https://chud.site/css/koko/Osaka.woff2');
+  font-display: block;
+}
+
+:root.theme-yotsuba {
   --text-color: #800000;
-  --text-font: 10pt arial, helvetica, sans-serif;
+  --text-font: 10pt Osaka, arial, helvetica, sans-serif;
   --page-background-color: #FFFFEE;
   --box-header-background-color: #ffccaa;
   --box-background-color: #ffffff;
@@ -8,11 +16,14 @@
   --post-border-color: #d9bfb7;
   --nav-text-color: #000000;
   --nav-dropdown-bgcolor: #f0e0d6;
-  --link-text-color: #0066cc;
-  --link-visited-text-color: #0066cc;
+  --link-text-color: #0000ee;
+  --link-visited-text-color: #0000ee;
   --link-hover-color: #ff0000;
   --subject-color: #cc1105;
   --quote-color: #789922;
+  --nav-background-color: #f0e0d6;
+  --post-highlight-color: #f0c0b0;
+  --name-color: #2a994d;
 }
 
 :root.theme-tomorrow {
@@ -30,11 +41,14 @@
   --link-hover-color: #5f89ac;
   --subject-color: #b294bb;
   --quote-color: #b5bd68;
+  --nav-background-color: #282a2e;
+  --post-highlight-color: #1d1d21;
+  --name-color: #2a994d;
 }
 
 :root.theme-niniba {
   --text-color: #134E18;
-  --text-font: 10pt arial, helvetica, sans-serif;
+  --text-font: 10pt Osaka, arial, helvetica, sans-serif;
   --page-background-color: #FFFFEE;
   --box-header-background-color: #A6DC91;
   --box-background-color: #ffffff;
@@ -47,8 +61,201 @@
   --link-hover-color: #ff0000;
   --subject-color: #9a3ab8;
   --quote-color: #789922;
+  --nav-background-color: #d9f8cc;
+  --post-highlight-color: #bddfaf;
+  --name-color: #2a994d;
 }
 
+:root.theme-osaka {
+  --text-color: #c5c8c6;
+  --text-font: 10pt Osaka, arial, helvetica, sans-serif;
+  --page-background-color: #1d1f21;
+  --box-header-background-color: #38393b;
+  --box-background-color: #282a2e;
+  --post-background-color: #282a2e;
+  --post-border-color: #282a2e;
+  --nav-text-color: #81a2be;
+  --nav-dropdown-bgcolor: #282a2e;
+  --link-text-color: #81a2be;
+  --link-visited-text-color: #9881be;
+  --link-hover-color: #5f89ac;
+  --subject-color: #b294bb;
+  --quote-color: #b5bd68;
+  --nav-background-color: #000000;
+  --post-highlight-color: #1d1d21;
+  --name-color: #eeeeee;
+}
+
+:root.theme-midnight {
+  --text-color: #c5c8c6;
+  --text-font: 10pt arial, helvetica, sans-serif;
+  --page-background-color: #1d1f21;
+  --box-header-background-color: #38393b;
+  --box-background-color: #282a2e;
+  --post-background-color: #282a2e;
+  --post-border-color: #282a2e;
+  --nav-text-color: #81a2be;
+  --nav-dropdown-bgcolor: #282a2e;
+  --link-text-color: #81a2be;
+  --link-visited-text-color: #9881be;
+  --link-hover-color: #5f89ac;
+  --subject-color: #b294bb;
+  --quote-color: #b5bd68;
+  --nav-background-color: #000000;
+  --post-highlight-color: #1d1d21;
+  --name-color: #eeeeee;
+}
+
+:root.theme-yotsubab {
+    --text-color: #000000;
+    --text-font: 10pt Osaka, arial, helvetica, sans-serif;
+    --page-background-color: #EEF2FF;
+    --box-header-background-color: #D6DAF0;
+    --box-background-color: #ffffff;
+    --post-background-color: #D6DAF0;
+    --post-border-color: #B7C5D9;
+    --nav-text-color: #000000;
+    --nav-dropdown-bgcolor: #f0e0d6;
+    --link-text-color: #34345C;
+    --link-visited-text-color: #34345C;
+    --link-hover-color: #ff0000;
+    --subject-color: #0F0C5D;
+    --quote-color: #789922;
+    --nav-background-color: #D6DAF0;
+    --post-highlight-color: #d6bad0;
+    --name-color: #117743;
+    --name-color: #2a994d;
+}
+
+:root.theme-futaba {
+  --text-color: #800000;
+  --text-font: 12pt times new roman, serif;
+  --page-background-color: #FFFFEE;
+  --box-header-background-color: #ffccaa;
+  --box-background-color: #ffffff;
+  --post-background-color: #f0e0d6;
+  --post-border-color: #d9bfb7;
+  --nav-text-color: #000000;
+  --nav-dropdown-bgcolor: #f0e0d6;
+  --link-text-color: #0000ee;
+  --link-visited-text-color: #0000ee;
+  --link-hover-color: #ff0000;
+  --subject-color: #cc1105;
+  --quote-color: #789922;
+  --nav-background-color: #f0e0d6;
+  --post-highlight-color: #f0c0b0;
+  --name-color: #2a994d;
+}
+
+:root.theme-burichan {
+    --text-color: #000000;
+    --text-font: 12pt times new roman, serif;
+    --page-background-color: #EEF2FF;
+    --box-header-background-color: #D6DAF0;
+    --box-background-color: #ffffff;
+    --post-background-color: #D6DAF0;
+    --post-border-color: #B7C5D9;
+    --nav-text-color: #000000;
+    --nav-dropdown-bgcolor: #f0e0d6;
+    --link-text-color: #34345C;
+    --link-visited-text-color: #34345C;
+    --link-hover-color: #ff0000;
+    --subject-color: #0F0C5D;
+    --quote-color: #789922;
+    --nav-background-color: #D6DAF0;
+    --post-highlight-color: #d6bad0;
+    --name-color: #117743;highlight-color: #bddfaf;
+    --name-color: #2a994d;
+}
+
+:root.theme-yotsuba4 {
+  --text-color: #800000;
+  --text-font: 10pt arial, helvetica, sans-serif;
+  --page-background-color: #FFFFEE;
+  --box-header-background-color: #ffccaa;
+  --box-background-color: #ffffff;
+  --post-background-color: #f0e0d6;
+  --post-border-color: #d9bfb7;
+  --nav-text-color: #000000;
+  --nav-dropdown-bgcolor: #f0e0d6;
+  --link-text-color: #0000ee;
+  --link-visited-text-color: #0000ee;
+  --link-hover-color: #ff0000;
+  --subject-color: #cc1105;
+  --quote-color: #789922;
+  --nav-background-color: #f0e0d6;
+  --post-highlight-color: #f0c0b0;
+  --name-color: #2a994d;
+}
+
+:root.theme-yotsubab4 {
+    --text-color: #000000;
+    --text-font: 10pt arial, helvetica, sans-serif;
+    --page-background-color: #EEF2FF;
+    --box-header-background-color: #D6DAF0;
+    --box-background-color: #ffffff;
+    --post-background-color: #D6DAF0;
+    --post-border-color: #B7C5D9;
+    --nav-text-color: #000000;
+    --nav-dropdown-bgcolor: #f0e0d6;
+    --link-text-color: #34345C;
+    --link-visited-text-color: #34345C;
+    --link-hover-color: #ff0000;
+    --subject-color: #0F0C5D;
+    --quote-color: #789922;
+    --nav-background-color: #D6DAF0;
+    --post-highlight-color: #d6bad0;
+    --name-color: #117743;
+    --name-color: #2a994d;
+}
+
+:root.theme-yotsuba blockquote a,
+:root.theme-futaba blockquote a,
+:root.theme-yotsuba4 blockquote a {
+    color: navy !important;
+    text-decoration: underline;
+}
+
+:root.theme-yotsubab blockquote a,
+:root.theme-burichan blockquote a,
+:root.theme-yotsubab4 blockquote a {
+    color: #d00 !important;
+    text-decoration: underline;
+}
+
+:root.theme-yotsuba .reply,
+:root.theme-yotsubab .reply,
+:root.theme-niniba .reply,
+:root.theme-futaba .reply,
+:root.theme-burichan .reply,
+:root.theme-yotsuba4 .reply,
+:root.theme-yotsubab4 .reply {
+    border-width: 1px;
+    border-style: none solid solid none;
+    border-radius: 0;
+}
+
+:root.theme-yotsuba .board-title,
+:root.theme-yotsuba4 .board-title,
+:root.theme-futaba .board-title,
+:root.theme-burichan .board-title,
+:root.theme-yotsubab .board-title,
+:root.theme-yotsubab4 .board-title {
+    color: #AF0A0F;
+}
+
+:root.theme-yotsuba4 .board-title,
+:root.theme-yotsubab4 .board-title {
+    letter-spacing: -1px;
+    font-family: tahoma, sans-serif;
+}
+
+:root.theme-futaba .subtitle,
+:root.theme-burichan .subtitle,
+:root.theme-futaba .backquote-list,
+:root.theme-burichan .backquote-list {
+    font-size: 10pt !important;
+}
 
 a.navbar-brand {
   white-space: normal;
@@ -128,6 +335,7 @@ body {
 }
 
 .footer {
+  background-color: var(--nav-background-color);
   position: absolute;
   bottom: 0;
   width: 100%;
@@ -153,20 +361,30 @@ body {
 .reply {
   background-color: var(--post-background-color);
   border: 1px solid var(--post-border-color);
+  border-radius: 5px;
   display: table;
-  padding: 2px;
+  padding: 0 2px;
 }
 
 .reply:target,
 .reply.highlight {
-  background: var(--post-background-color) !important;
-  border: 1px solid var(--post-border-color) !important;
-  padding: 2px;
+  background-color: var(--post-highlight-color);
+}
+
+.op .reply {
+  background-color: transparent;
+  border: none !important;
+  width: 100%;
 }
 
 .postInfo {
   display: block;
   width: 100%;
+  margin: 5px;
+}
+
+.postInfo a {
+  color: var(--text-color);
 }
 
 div.post div.postInfo {
@@ -181,18 +399,19 @@ div.post div.postInfo {
 }
 
 .name {
-  color: #2a994d;
+  color: var(--name-color);
   font-weight: 700;
 }
 
 blockquote {
-  margin: 16px 40px !important;
+  margin: 15px 30px !important;
 }
 
 .fileText {
   word-wrap: break-word;
   max-width: calc(100vw - 90px);
-  margin: 0 20px;
+  margin: 5px 20px;
+  font-size: 80%;
 }
 
 .fileThumb {
@@ -219,7 +438,7 @@ nav a:visited {
 
 nav,
 .navbar-light {
-  background-color: var(--post-background-color);
+  background-color: var(--nav-background-color);
   color: var(--nav-text-color);
 }
 
@@ -253,21 +472,48 @@ span.deadlink {
   cursor: pointer;
 }
 
-blockquote>span.quote {
+blockquote span.quote {
   color: var(--quote-color);
 }
 
-s:hover,
-s:focus,
-s:hover a {
-  color: #fff !important;
+blockquote span.quote2 {
+  color: #f6750b;
 }
 
-s,
-s a:not(:hover) {
-  color: #000 !important;
-  background: #000 !important;
-  text-decoration: none;
+blockquote .datamining {
+  background-color: #a0ecae;
+  box-shadow: rgb(102, 255, 102) 0px 0px 2rem 10px;
+}
+
+blockquote span.heading2 {
+  color: #0066cc;
+  font-size: 11pt;
+  font-weight: bold;
+}
+
+blockquote .glow {
+  text-shadow: 0px 0px 40px #00fe20, 0px 0px 2px #00fe20;
+}
+
+blockquote span.heading {
+	color: #cc1105;
+	font-size: 11pt;
+	font-weight: bold;
+}
+
+blockquote span.spoiler {
+	background: black;
+	color: black;
+	padding: 0 1px;
+}
+
+blockquote span.spoiler a {
+	color: black;
+}
+
+blockquote span.spoiler:hover,
+blockquote span.spoiler:hover a {
+	color: white;
 }
 
 figure.uploadCell {
@@ -281,6 +527,12 @@ figure.uploadCell {
 .imgLink {
   float: left;
   margin: 0 1rem 1rem 0.5rem;
+}
+
+.panelUploads {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 .multipleUploads.panelUploads::after {
@@ -307,4 +559,43 @@ figure.uploadCell {
 .uploadCell audio,
 .uploadCell img {
   max-width: 100%;
+}
+
+.menu {
+  width: 150px;
+  background-color: #ffffff;
+  padding: 5px 0;
+  color: #000000 !important;
+  border-radius: 6px;
+  border: 1px solid rgba(0,0,0,.2);
+  box-shadow: 0 5px 10px rgba(0,0,0,.2);
+  cursor: initial;
+  position: absolute;
+  z-index: 2;
+}
+
+.menu-caption {
+  font-size: 11px;
+  color: #888888;
+  padding: 5px 15px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.menu-item {
+  cursor: pointer;
+  user-select: none;
+  padding: 5px 15px;
+  display: block;
+  color: #000000 !important;
+  text-decoration: none !important;
+}
+
+.menu-item:hover {
+	background-color: #81a2be;
+	color: #ffffff !important;
+}
+
+.hidden {
+  display: none !important;
 }
