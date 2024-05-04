@@ -83,8 +83,6 @@
                             <div id="divNavigation" class="navigation title">
                                 <ul>
                                     <li><a href="info">Info & Contact</a></li>
-                                    <li><a href="https://gazou.chud.site/">Discussion</a></li>
-                                    <li><a href="https://chud.site/donate">Donate</a></li>
                                 </ul>
                             </div>
                         </tr>

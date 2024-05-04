@@ -110,9 +110,6 @@
             </button>
             <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                 <ul class="navbar-nav flex-grow-1">
-                    <li class="nav-item">
-                        <a class="nav-link" href="https://gazou.chud.site/">Discussion</a>
-                    </li>
                     <li class="separator"></li>
                     {#await $boardInfoStore}
                         <li class="nav-item nav-text">Loading...</li>
@@ -180,9 +177,6 @@
             </div>
         </div>
     </nav>
-    <div class="banner">
-        <a href="https://chud.site/donate" class="donate-link">Donations to the archive</a> would be appreciated to help cover costs and introduce a search feature.
-    </div>
 </header>
 <div class="mx-4">
     <main class="pb-3">
@@ -195,7 +189,7 @@
 
 <footer class="footer text-muted">
     <div class="container d-flex align-items-center">
-        <span class="mr-3"><a href="https://github.com/bbepis/Hayden" tinro-ignore>Hayden</a> 1.0 + {Utility.infoObject.siteName}  patch</span>
+        <span class="mr-3"><a href="https://github.com/bbepis/Hayden" tinro-ignore>Hayden</a> 1.0 + <a href="https://chud.site" tinro-ignore>SudeArchive</a> patch + Marge modifications</span>
         <div class="flex-grow-1"></div>
         <select class="form-control theme-select" style="padding: 0.25rem; height: calc(1.5rem + 0.25rem)"
             bind:value={selectedTheme}
