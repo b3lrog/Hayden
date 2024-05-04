@@ -131,6 +131,9 @@ namespace Hayden
 		[JsonProperty("com")]
 		public string Comment { get; set; }
 
+		[JsonProperty("___body_nomarkup")]
+		public string RawComment { get; set; }
+
 		[JsonProperty("tim")]
 		public string TimestampedFilename { get; set; }
 
@@ -266,7 +269,7 @@ namespace Hayden
 				Tripcode = Trip,
 				Email = Email,
 				ContentRendered = Comment,
-				ContentRaw = null,
+				ContentRaw = RawComment,
 				ContentType = ContentType.Vichan,
 				Media = media,
 				OriginalObject = this,
