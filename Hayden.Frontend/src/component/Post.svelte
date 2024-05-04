@@ -251,9 +251,7 @@
 		</div>
 	{/if}
 	<blockquote class="post-contents">
-		{#if post.contentRaw}
-			{@html RenderRawPost(post.contentRaw)}
-		{:else if post.contentHtml}
+		{#if post.contentHtml}
 			{@html post.contentHtml
 				.replaceAll('\n', '<br/>')
 				.replace(/<a\s+[^>]*?href="\/(.*?)\/(thread|res)\/(\d+)\.html#(\d+)"[^>]*?>/g, '<a class="quoteLink" href="/$1/thread/$3#p$4" tinro-ignore="true">')
