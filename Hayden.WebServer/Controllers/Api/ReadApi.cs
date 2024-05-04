@@ -211,6 +211,8 @@ namespace Hayden.WebServer.Controllers.Api
 
 			public string capcode { get; set; }
 
+			public string posterId { get; set; }
+
 			public JsonCountryModel country { get; set; }
 
 			public JsonPostModel(DBPost post, JsonFileModel[] files)
@@ -231,6 +233,8 @@ namespace Hayden.WebServer.Controllers.Api
 					embed = additionalMetadata.Embed;
 
 					capcode = additionalMetadata.Capcode;
+
+					posterId = additionalMetadata.PosterID;
 
 					if (additionalMetadata.CountryCode != null && additionalMetadata.CountryName != null)
 					{

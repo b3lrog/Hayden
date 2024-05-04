@@ -93,6 +93,7 @@
 			{:else}
 				<span class="name">{post.author ?? "Anonymous"}</span>
 			{/if}
+			{#if post.posterId}<span class="posterId">ID: {post.posterId}</span>{/if}
 			{#if post.capcode}<span class="capcode">## {post.capcode}</span>{/if}
 			{#if post.tripcode}<span class="tripcode">{post.tripcode}</span>{/if}
 		</span>

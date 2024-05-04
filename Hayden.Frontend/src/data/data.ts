@@ -72,6 +72,8 @@ export class PostModel {
 
     capcode: string | null;
 
+    posterId: string | null;
+
     country: CountryModel | null;
 
     files: FileModel[];
