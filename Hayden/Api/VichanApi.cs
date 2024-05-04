@@ -116,6 +116,9 @@ namespace Hayden
 		[JsonProperty("trip")]
 		public string Trip { get; set; }
 
+		[JsonProperty("id")]
+		public string PosterID { get; set; }
+
 		[JsonProperty("capcode")]
 		public string Capcode { get; set; }
 
@@ -272,7 +275,8 @@ namespace Hayden
 					Capcode = Capcode,
 					CountryCode = CountryCode,
 					CountryName = CountryName,
-					Embed = Embed
+					Embed = Embed,
+					PosterID = PosterID
 				}
 			};
 		}
