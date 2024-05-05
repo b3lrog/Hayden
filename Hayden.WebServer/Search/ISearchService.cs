@@ -21,7 +21,9 @@ public class SearchRequest
 
 	public string Subject { get; set; }
 	public string PosterName { get; set; }
+	public string PosterEmail { get; set; }
 	public string PosterTrip { get; set; }
+	public string PosterCap { get; set; }
 	public string PosterID { get; set; }
 	public string FileMD5 { get; set; }
 	public string Filename { get; set; }

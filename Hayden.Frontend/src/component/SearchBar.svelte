@@ -14,7 +14,9 @@
 	let selectedBoard = "";
 	let subjectText = "";
 	let nameText = "";
+	let emailText = "";
 	let tripText = "";
+	let capText = "";
 	let posterIdText = "";
 	let filenameText = "";
 	let fileMd5Hash = "";
@@ -44,9 +46,15 @@
 
 		if (Utility.IsNotEmpty(nameText))
 			params["name"] = nameText;
+		
+		if (Utility.IsNotEmpty(emailText))
+			params["email"] = emailText;
 
 		if (Utility.IsNotEmpty(tripText))
 			params["trip"] = tripText;
+
+		if (Utility.IsNotEmpty(capText))
+			params["capcode"] = capText;
 
 		if (Utility.IsNotEmpty(posterIdText))
 			params["posterId"] = posterIdText;
@@ -136,18 +144,31 @@
 			</div>
 
 			<div class="d-flex mt-2">
-				<div class="d-flex" style="width: 50%">
-					<span class="px-2 text-right align-middle d-flex" style="width: 80px; background-color: var(--box-header-background-color); justify-content: end; align-items: center;">
-						Name
-					</span>
-					<input type="text" class="flex-grow-1" bind:value={nameText}>
-				</div>
-				<div class="d-flex" style="width: 50%">
-					<span class="px-2 text-right align-middle d-flex" style="width: 80px; background-color: var(--box-header-background-color); justify-content: end; align-items: center;">
-						Tripcode
-					</span>
-					<input type="text" class="flex-grow-1" bind:value={tripText}>
-				</div>
+				<span class="px-2 text-right align-middle d-flex" style="width: 90px; background-color: var(--box-header-background-color); justify-content: end; align-items: center;">
+					Name
+				</span>
+				<input type="text" class="w-100" bind:value={nameText}>
+			</div>
+
+			<div class="d-flex mt-2">
+				<span class="px-2 text-right align-middle d-flex" style="width: 90px; background-color: var(--box-header-background-color); justify-content: end; align-items: center;">
+					Email
+				</span>
+				<input type="text" class="w-100" bind:value={emailText}>
+			</div>
+
+			<div class="d-flex mt-2">
+				<span class="px-2 text-right align-middle d-flex" style="width: 90px; background-color: var(--box-header-background-color); justify-content: end; align-items: center;">
+					Tripcode
+				</span>
+				<input type="text" class="w-100" bind:value={tripText}>
+			</div>
+
+			<div class="d-flex mt-2">
+				<span class="px-2 text-right align-middle d-flex" style="width: 90px; background-color: var(--box-header-background-color); justify-content: end; align-items: center;">
+					Capcode
+				</span>
+				<input type="text" class="w-100" bind:value={capText}>
 			</div>
 
 			<div class="d-flex mt-2">

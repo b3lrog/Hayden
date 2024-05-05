@@ -70,8 +70,14 @@ public class LnxSearch : ISearchService
 		if (!string.IsNullOrWhiteSpace(searchRequest.PosterName))
 			searchParams.Add($"posterName:\"{searchRequest.PosterName.Replace("\"", "")}\"");
 
+		if (!string.IsNullOrWhiteSpace(searchRequest.PosterEmail))
+			searchParams.Add($"email:\"{searchRequest.PosterEmail.Replace("\"", "")}\"");
+
 		if (!string.IsNullOrWhiteSpace(searchRequest.PosterTrip))
 			searchParams.Add($"tripcode:\"{searchRequest.PosterTrip.Replace("\"", "")}\"");
+
+		if (!string.IsNullOrWhiteSpace(searchRequest.PosterCap))
+			searchParams.Add($"capcode:\"{searchRequest.PosterCap.Replace("\"", "")}\"");
 
 		if (!string.IsNullOrWhiteSpace(searchRequest.PosterID))
 			searchParams.Add($"posterId:\"{searchRequest.PosterID.Replace("\"", "")}\"");
@@ -132,7 +138,9 @@ public class LnxSearch : ISearchService
 			boardId = x.BoardId,
 			subject = x.Subject ?? string.Empty,
 			posterName = x.PosterName ?? string.Empty,
+			email = x.Email ?? string.Empty,
 			tripcode = x.Tripcode ?? string.Empty,
+			capcode = x.Capcode ?? string.Empty,
 			posterId = x.PosterID ?? string.Empty,
 			mediaFilename = x.MediaFilename ?? string.Empty,
 			mediaMd5hash = x.MediaMd5HashBase64 ?? string.Empty,

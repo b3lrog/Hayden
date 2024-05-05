@@ -35,8 +35,14 @@ namespace Hayden.WebServer.DB.Elasticsearch
 		[Keyword(Name = "name", Index = true, Store = false, Similarity = "boolean")]
 		public string PosterName { get; set; }
 
+		[Keyword(Name = "email", Index = true, Store = false, Similarity = "boolean")]
+		public string Email { get; set; }
+
 		[Keyword(Name = "trip", Index = true, Store = false, Similarity = "boolean")]
 		public string Tripcode { get; set; }
+
+		[Keyword(Name = "capcode", Index = true, Store = false, Similarity = "boolean")]
+		public string Capcode { get; set; }
 
 		[Keyword(Name = "posterID", Index = true, Store = false, Similarity = "boolean")]
 		public string PosterID { get; set; }

@@ -73,8 +73,14 @@ public class ElasticSearch : ISearchService
 			if (!string.IsNullOrWhiteSpace(searchRequest.PosterName))
 				allQueries.Add(y => y.Match(z => z.Field(a => a.PosterName).Query(searchRequest.PosterName)));
 
+			if (!string.IsNullOrWhiteSpace(searchRequest.PosterEmail))
+				allQueries.Add(y => y.Match(z => z.Field(a => a.Email).Query(searchRequest.PosterEmail)));
+
 			if (!string.IsNullOrWhiteSpace(searchRequest.PosterTrip))
 				allQueries.Add(y => y.Match(z => z.Field(a => a.Tripcode).Query(searchRequest.PosterTrip)));
+
+			if (!string.IsNullOrWhiteSpace(searchRequest.PosterCap))
+				allQueries.Add(y => y.Match(z => z.Field(a => a.Capcode).Query(searchRequest.PosterCap)));
 
 			if (!string.IsNullOrWhiteSpace(searchRequest.PosterID))
 				allQueries.Add(y => y.Match(z => z.Field(a => a.PosterID).Query(searchRequest.PosterID)));
