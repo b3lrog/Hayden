@@ -205,7 +205,9 @@ public class LnxSearch : ISearchService
 		
 		AddField("subject", "text", false);
 		AddField("posterName", "text", false);
+		AddField("email", "text", false);
 		AddField("tripcode", "text", false);
+		AddField("capcode", "text", false);
 		AddField("posterId", "text", false);
 		AddField("mediaFilename", "text", false);
 		AddField("mediaMd5Hash", "text", false);
