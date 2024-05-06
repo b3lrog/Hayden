@@ -302,7 +302,9 @@ namespace Hayden.WebServer.Data
 					IsDeleted = x.post.IsDeleted,
 					Subject = isOp ? x.thread.Title : null,
 					PosterName = x.post.Author,
+					Email = x.post.Email,
 					Tripcode = x.post.Tripcode,
+					Capcode = additionalMetadata?.Capcode,
 					MediaFilename = x.mapping != null ? (x.mapping.Filename + "." + x.file?.Extension) : null, // TODO: this needs to check AdditionalMetadata for extensions
 					MediaMd5HashBase64 = x.file != null ? Convert.ToBase64String(x.file.Md5Hash) : null // TODO: this needs to check AdditionalMetadata for hashes
 
