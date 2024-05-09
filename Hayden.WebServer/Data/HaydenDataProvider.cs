@@ -203,14 +203,14 @@ namespace Hayden.WebServer.Data
 
 			var result = await items.AsNoTracking().ToArrayAsync();
 
-			JsonThreadModel[] threadModels = new JsonThreadModel[threadIdArray.Length];
+			JsonThreadModel[] tempThreadModels = new JsonThreadModel[threadIdArray.Length];
 			int i = 0;
 
 			foreach (var group in result.GroupBy(x => new { x.p.BoardId, x.p.PostId }))
 			{
 				var item = group.First();
 
-				threadModels[i] = new JsonThreadModel
+				tempThreadModels[i] = new JsonThreadModel
 				{
 					board = item.b,
 					archived = false,
@@ -231,6 +231,12 @@ namespace Hayden.WebServer.Data
 				};
 
 				i++;
+			}
+
+			// bandaid fix for the last few values sometimes being null
+			JsonThreadModel[] threadModels = new JsonThreadModel[i];
+			for (int x = 0; x < i; x++) {
+				threadModels[x] = tempThreadModels[x];
 			}
 
 			return new JsonBoardPageModel
