@@ -254,8 +254,8 @@
 		{#if post.contentHtml}
 			{@html post.contentHtml
 				.replaceAll('\n', '<br/>')
-				.replace(/<a\s+[^>]*?href="\/(.*?)\/(thread|res)\/(\d+)\.html#(\d+)"[^>]*?>/g, '<a class="quoteLink" href="/$1/thread/$3#p$4" tinro-ignore="true">')
-				.replace(/<a\s+[^>]*?href="\/(.*?)\/index.html">&gt;&gt;&gt;\/(.*?)\/<\/a>/g, '<a class="quoteLink" href="/board/$2" tinro-ignore="true">&gt;&gt;&gt;/$2/</a>')
+				.replace(/<a\s+[^>]*?href="\/(.*?)\/{1,2}(thread|res)\/(\d+)\.html#(\d+)"[^>]*?>/g, '<a class="quoteLink" href="/$1/thread/$3#p$4" tinro-ignore="true">')
+				.replace(/<a\s+[^>]*?href="\/(.*?)\/{1,2}index.html">&gt;&gt;&gt;\/(.*?)\/<\/a>/g, '<a class="quoteLink" href="/board/$2" tinro-ignore="true">&gt;&gt;&gt;/$2/</a>')
 				.replaceAll('<a href="https://jump.kolyma.net?', '<a href="')
 				.replaceAll('<img src="/static/inline_soyjaks/', '<img src="/inline_soyjaks/')}
 		{/if}
