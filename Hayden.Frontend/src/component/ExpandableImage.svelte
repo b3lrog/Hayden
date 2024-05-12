@@ -51,6 +51,7 @@
     <img
         bind:this={img}
         on:load={() => loading = false}
+        loading="lazy"
         src={expanded ? fullImageUrl : displayThumbUrl}
         alt={altText}
         class="thumb-clickable"
@@ -63,6 +64,7 @@
 {:else}
     <img
         bind:this={img}
+        loading="lazy"
         src={displayThumbUrl}
         alt={altText}
         decoding="async"
