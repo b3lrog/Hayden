@@ -173,7 +173,7 @@
 					alt="Missing file"
 				/>
 			{:else}
-				{#if file.extension === "webm" || file.extension === "mp4" || file.extension === "mov"}
+				{#if file.extension === "webm" || file.extension === "mp4"}
 					<ExpandableVideo
 						videoUrl={file.imageUrl}
 						thumbUrl={file.thumbnailUrl}
@@ -226,7 +226,7 @@
 							alt="Missing file"
 						/>
 					{:else}
-						{#if file.extension === "webm" || file.extension === "mp4" || file.extension === "mov"}
+						{#if file.extension === "webm" || file.extension === "mp4"}
 							<ExpandableVideo
 								videoUrl={file.imageUrl}
 								thumbUrl={file.thumbnailUrl}

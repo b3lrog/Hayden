@@ -9,7 +9,7 @@
     export let height: number;
     export let extension: string;
 
-    let displayThumbUrl = (extension === "mp3" || extension === "wav" || extension === "flac" || extension === "opus" || extension === "ogg") ? '/speaker.png' : ((extension === "pdf") ? '/file.png' : (extension === "swf" ? '/swf.png' : thumbUrl));
+    let displayThumbUrl = (extension === "mp3" || extension === "wav" || extension === "flac" || extension === "opus" || extension === "ogg") ? '/speaker.png' : ((extension === "pdf" || extension === "mov") ? '/file.png' : (extension === "swf" ? '/swf.png' : thumbUrl));
 
     let thumbnailSize: { width: number, height: number } | null = (extension === "mov" || extension === "swf" || extension == "pdf") ? null :
         Utility.guessThumbnailSize(width, height);
