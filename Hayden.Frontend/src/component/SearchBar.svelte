@@ -183,7 +183,7 @@
 					<span class="px-2 text-right align-middle d-flex" style="width: 80px; background-color: var(--box-header-background-color); justify-content: end; align-items: center;">
 						Filename
 					</span>
-					<input disabled class="flex-grow-1" type="text" bind:value={filenameText}/>
+					<input class="flex-grow-1" type="text" bind:value={filenameText}/>
 				</div>
 				<div class="d-flex" style="width: 50%">
 					<span class="px-2 text-right align-middle d-flex" style="width: 170px; background-color: var(--box-header-background-color); justify-content: end; align-items: center;">
